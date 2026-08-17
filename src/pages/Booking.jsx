@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import site from '../data/site.js'
+import site, { contactLinks } from '../data/site.js'
 import { bookingOptions } from '../data/services.js'
 import Reveal from '../components/Reveal.jsx'
 
@@ -77,26 +77,11 @@ export default function Booking() {
             </p>
 
             <div className="chips" style={{ marginTop: '2rem' }}>
-              {site.contacts.telegram && (
-                <a
-                  className="chip"
-                  href={site.contacts.telegram}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  telegram
+              {contactLinks.map((l) => (
+                <a className="chip" key={l.key} href={l.href} target="_blank" rel="noreferrer">
+                  {l.label}
                 </a>
-              )}
-              {site.contacts.instagram && (
-                <a
-                  className="chip"
-                  href={site.contacts.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  instagram
-                </a>
-              )}
+              ))}
               {site.contacts.phone && (
                 <a className="chip" href={`tel:${site.contacts.phone.replace(/[^+\d]/g, '')}`}>
                   {site.contacts.phone}

@@ -144,11 +144,13 @@ section {
   min-height: 54px;
 }
 
+/* Рукописный Pinyon Script — только латиница, поэтому имя набираем сан-серифом. */
 .nav-brand {
-  font-family: var(--script);
-  font-size: 1.5rem;
-  line-height: 1;
-  padding-top: 0.2em;
+  font-weight: 300;
+  font-size: clamp(0.78rem, 2.6vw, 0.85rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav-links {
@@ -568,10 +570,10 @@ section {
 .footer-brand {
   font-family: var(--sans);
   font-weight: 200;
-  font-size: clamp(2.5rem, 11vw, 6rem);
+  font-size: clamp(1.75rem, 6.5vw, 4rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .footer-cols {
@@ -594,6 +596,12 @@ section {
 
 .footer-cols a:hover {
   color: var(--panel-ink);
+}
+
+.footer-plain {
+  display: block;
+  padding: 0.25rem 0;
+  color: rgba(242, 237, 228, 0.7);
 }
 
 .footer-note {
