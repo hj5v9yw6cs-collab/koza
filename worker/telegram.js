@@ -29,6 +29,13 @@ export async function handleTelegramWebhook(request, env) {
 
   if (!chatId) return json({ ok: true })
 
+  // Номер чата нужен, чтобы направить заявки в личку или в общую группу.
+  // Через getUpdates его не узнать, когда включён вебхук, — поэтому команда.
+  if (/^\/id(@\w+)?\b/.test(text)) {
+    await reply(env, chatId, `Номер этого чата: ${chatId}`)
+    return json({ ok: true })
+  }
+
   const start = text.match(/^\/start(?:\s+(\S+))?/)
 
   if (!start) {
