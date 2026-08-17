@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+# Локальные переменные для wrangler — там живёт токен бота.
+.dev.vars
+.wrangler
+dist-preview
