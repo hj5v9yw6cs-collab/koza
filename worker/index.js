@@ -5,6 +5,7 @@
 // Всё под /api/ обрабатываем здесь.
 
 import { json } from './lib.js'
+import { ensureSchema } from './db.js'
 import { handleBooking } from './booking.js'
 import { handleTelegramWebhook, setupWebhook } from './telegram.js'
 import { handleLogin, handleLogout, isLoggedIn } from './auth.js'
@@ -73,6 +74,7 @@ export default {
 
     if (url.pathname.startsWith('/api/')) {
       try {
+        await ensureSchema(env)
         return await handleApi(request, env, url)
       } catch (err) {
         console.error('api error', url.pathname, err)
