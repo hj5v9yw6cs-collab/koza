@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, HashRouter } from 'react-router-dom'
 import App from './App.jsx'
 
 // Шрифты лежат внутри сайта, а не на Google Fonts: так они грузятся быстрее
@@ -17,10 +17,14 @@ import '@fontsource/pinyon-script/latin-400.css'
 
 import './styles.css'
 
+// Обычный сайт живёт на путях вида /services. Сборка превью (одним файлом,
+// без сервера) не может их отдавать, поэтому там маршруты идут после решётки.
+const Router = import.meta.env.VITE_HASH_ROUTER ? HashRouter : BrowserRouter
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>
+    </Router>
   </React.StrictMode>,
 )
