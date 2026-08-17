@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import site from '../data/site.js'
 import photos from '../data/portfolio.js'
+import portrait from '../data/portrait.js'
 import Reveal from '../components/Reveal.jsx'
+import Figure from '../components/Figure.jsx'
 import { simpleServices, sizedServices } from '../data/services.js'
 
 export default function Home() {
@@ -25,25 +27,10 @@ export default function Home() {
             </div>
           </div>
 
-          <Reveal className="hero-figure">
-            {photos[0] ? (
-              <img src={photos[0].src} alt="Работа мастера" />
-            ) : (
-              <div
-                style={{
-                  height: '100%',
-                  display: 'grid',
-                  placeItems: 'center',
-                  color: 'var(--muted)',
-                  fontSize: '0.72rem',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                фото
-              </div>
-            )}
-          </Reveal>
+          <Figure
+            src={portrait || photos[0]?.src}
+            alt={portrait ? site.name : 'Работа мастера'}
+          />
         </div>
       </section>
 

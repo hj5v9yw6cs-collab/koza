@@ -298,6 +298,16 @@ section {
   object-fit: cover;
 }
 
+.figure-empty {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
 .hero-meta {
   display: flex;
   flex-direction: column;
