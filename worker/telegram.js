@@ -29,12 +29,19 @@ export async function handleTelegramWebhook(request, env) {
 
   if (!chatId) return json({ ok: true })
 
+  // В группу заявки только приходят. Бот там администратор и видит всю
+  // переписку, поэтому на обычные сообщения не отвечает — иначе он реагировал
+  // бы на каждую реплику. Исключение — команда /id.
+  const isPrivate = message.chat?.type === 'private'
+
   // Номер чата нужен, чтобы направить заявки в личку или в общую группу.
   // Через getUpdates его не узнать, когда включён вебхук, — поэтому команда.
   if (/^\/id(@\w+)?\b/.test(text)) {
     await reply(env, chatId, `Номер этого чата: ${chatId}`)
     return json({ ok: true })
   }
+
+  if (!isPrivate) return json({ ok: true })
 
   const start = text.match(/^\/start(?:\s+(\S+))?/)
 
