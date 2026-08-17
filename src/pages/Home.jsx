@@ -4,6 +4,7 @@ import photos from '../data/portfolio.js'
 import portrait from '../data/portrait.js'
 import Reveal from '../components/Reveal.jsx'
 import Figure from '../components/Figure.jsx'
+import Gallery from '../components/Gallery.jsx'
 import { simpleServices, sizedServices } from '../data/services.js'
 
 export default function Home() {
@@ -108,13 +109,7 @@ export default function Home() {
                 gallery
               </h2>
             </Reveal>
-            <Reveal className="gallery">
-              {preview.map((p) => (
-                <div className="tile" key={p.name}>
-                  <img src={p.src} alt="Работа мастера" loading="lazy" />
-                </div>
-              ))}
-            </Reveal>
+            <Gallery photos={preview} />
             <Reveal style={{ marginTop: '2rem' }}>
               <Link to="/portfolio" className="link-more">
                 все работы

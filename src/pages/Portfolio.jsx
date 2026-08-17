@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import photos from '../data/portfolio.js'
 import Reveal from '../components/Reveal.jsx'
+import Gallery from '../components/Gallery.jsx'
 
 export default function Portfolio() {
   return (
@@ -17,13 +18,7 @@ export default function Portfolio() {
       <section style={{ paddingTop: 0 }}>
         <div className="wrap">
           {photos.length > 0 ? (
-            <Reveal className="gallery">
-              {photos.map((p) => (
-                <div className="tile" key={p.name}>
-                  <img src={p.src} alt="Работа мастера" loading="lazy" />
-                </div>
-              ))}
-            </Reveal>
+            <Gallery photos={photos} />
           ) : (
             <div className="gallery-empty">
               Фото работ скоро появятся здесь.

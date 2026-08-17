@@ -282,14 +282,24 @@ section {
 
 @media (min-width: 860px) {
   .hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr auto;
   }
 }
 
+/* Портрет намеренно небольшой — он поддерживает заголовок, а не спорит с ним. */
 .hero-figure {
   aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 260px;
   background: var(--cream-deep);
   overflow: hidden;
+}
+
+@media (min-width: 860px) {
+  .hero-figure {
+    max-width: 300px;
+    margin-left: auto;
+  }
 }
 
 .hero-figure img {
@@ -443,11 +453,32 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, filter 0.5s ease;
 }
 
-.tile:hover img {
-  transform: scale(1.04);
+/* Плитки чёрно-белые. Там, где есть курсор, цвет возвращается под курсором. */
+@media (hover: hover) {
+  .tile img {
+    filter: grayscale(1);
+  }
+
+  .tile:hover img,
+  .tile:focus-within img {
+    filter: grayscale(0);
+    transform: scale(1.04);
+  }
+}
+
+/* На телефоне наводить нечем: цвет получает фото в центре экрана — галерея
+   расцветает по ходу прокрутки (класс .lit ставит компонент Gallery). */
+@media (hover: none) {
+  .tile img {
+    filter: grayscale(1);
+  }
+
+  .tile.lit img {
+    filter: grayscale(0);
+  }
 }
 
 .gallery-empty {
