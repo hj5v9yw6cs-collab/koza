@@ -37,6 +37,34 @@ export const extras = [
   { id: 'design', title: 'сложный дизайн', note: '', priceLabel: '300 ₽' },
 ]
 
+// Варианты для калькулятора: что можно выбрать как основную услугу.
+// min/max нужны там, где цена в прайсе указана вилкой (ремонт).
+export const calcServices = [
+  { id: 'manicure', title: 'маникюр', min: 500, max: 500 },
+  { id: 'removal', title: 'снятие', min: 700, max: 700 },
+  { id: 'correction', title: 'коррекция', sized: true },
+  { id: 'extension', title: 'наращивание', sized: true },
+  { id: 'repair', title: 'ремонт', min: 50, max: 100, note: 'донаращивание 1 ногтя' },
+]
+
+// Что можно добавить к основной услуге.
+// only — услуги, к которым добавка вообще применима.
+export const calcExtras = [
+  {
+    id: 'design',
+    title: 'сложный дизайн',
+    price: 300,
+    only: ['manicure', 'correction', 'extension', 'repair'],
+  },
+  {
+    id: 'removal',
+    title: 'снятие старого покрытия',
+    price: 700,
+    note: 'коррекция уже включает снятие',
+    only: ['manicure', 'extension'],
+  },
+]
+
 // Плоский список для селекта в форме записи.
 export const bookingOptions = [
   ...simpleServices.map((s) => ({ value: s.title, label: `${s.title} — ${s.price} ₽` })),

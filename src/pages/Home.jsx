@@ -126,7 +126,7 @@ export default function Home() {
               Запишемся?
             </h2>
             <p className="lead" style={{ margin: '1rem auto 2rem' }}>
-              Оставьте заявку — я отвечу в течение дня и подберём удобное время.
+              Оставь заявку — отвечу в течение дня и подберём удобное время.
             </p>
             <Link to="/booking" className="btn">
               записаться

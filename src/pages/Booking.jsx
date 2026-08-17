@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import site, { contactLinks } from '../data/site.js'
 import { bookingOptions } from '../data/services.js'
 import Reveal from '../components/Reveal.jsx'
@@ -15,7 +16,14 @@ const empty = {
 }
 
 export default function Booking() {
-  const [form, setForm] = useState(empty)
+  const [params] = useSearchParams()
+  // Из калькулятора приходим с уже выбранной услугой.
+  const preselected = params.get('service')
+  const known = bookingOptions.some((o) => o.value === preselected)
+
+  const [form, setForm] = useState(
+    known ? { ...empty, service: preselected } : empty,
+  )
   const [state, setState] = useState('idle') // idle | sending | ok | err
   const [error, setError] = useState('')
 
@@ -28,7 +36,7 @@ export default function Booking() {
     if (state === 'sending') return
 
     if (!form.name.trim() || !form.contact.trim()) {
-      setError('Заполните имя и способ связи.')
+      setError('Напиши имя и способ связи.')
       setState('err')
       return
     }
@@ -72,8 +80,8 @@ export default function Booking() {
         <div className="wrap form-grid">
           <Reveal>
             <p className="lead">
-              Оставьте заявку — я получу её в телеграм и вернусь с подтверждением в течение дня.
-              Если удобнее написать напрямую, ссылки ниже.
+              Оставь заявку — она придёт мне в телеграм, и я вернусь с подтверждением в течение
+              дня. Если удобнее написать напрямую, ссылки ниже.
             </p>
 
             <div className="chips" style={{ marginTop: '2rem' }}>
@@ -93,7 +101,7 @@ export default function Booking() {
           <Reveal>
             <form onSubmit={submit} noValidate>
               <div className="field">
-                <label htmlFor="name">как вас зовут *</label>
+                <label htmlFor="name">как тебя зовут *</label>
                 <input
                   id="name"
                   value={form.name}
@@ -119,7 +127,7 @@ export default function Booking() {
               <div className="field">
                 <label htmlFor="service">услуга</label>
                 <select id="service" value={form.service} onChange={set('service')}>
-                  <option value="">не выбрано — подскажите на месте</option>
+                  <option value="">не выбрано — подскажу на месте</option>
                   {bookingOptions.map((o) => (
                     <option key={o.value} value={o.value}>
                       {o.label}
@@ -169,7 +177,7 @@ export default function Booking() {
 
               {state === 'ok' && (
                 <div className="form-status ok" role="status">
-                  Заявка отправлена. Я свяжусь с вами, чтобы подтвердить время — спасибо!
+                  Заявка отправлена. Напишу тебе, чтобы подтвердить время — спасибо!
                 </div>
               )}
 
@@ -180,8 +188,7 @@ export default function Booking() {
               )}
 
               <p className="field-hint" style={{ marginTop: '1rem' }}>
-                Нажимая кнопку, вы соглашаетесь на обработку указанных данных для записи на
-                приём.
+                Нажимая кнопку, ты соглашаешься на обработку указанных данных для записи.
               </p>
             </form>
           </Reveal>
