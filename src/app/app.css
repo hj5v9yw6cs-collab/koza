@@ -1,0 +1,322 @@
+/* Приложение мастера. Палитра та же, что на сайте, но плотнее: этот экран
+   не читают, а просматривают и нажимают. */
+
+/* Приложение живёт под теми же переменными, что сайт, но правила сайта для
+   элементов ему мешают: section на сайте имеет большие внешние отступы. */
+.app section,
+.app-login section {
+  padding: 0;
+}
+
+.app {
+  --ok: #2f6b4f;
+  --no: #9d3b2f;
+  min-height: 100vh;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 1rem) 1rem calc(env(safe-area-inset-bottom) + 3rem);
+}
+
+.app-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.app-top h1 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- вкладки ---------- */
+
+.app-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  overflow-x: auto;
+}
+
+.app-tab {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: transparent;
+  padding: 0.55rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.app-tab[aria-pressed='true'] {
+  background: var(--panel);
+  border-color: var(--panel);
+  color: var(--panel-ink);
+}
+
+/* ---------- день ---------- */
+
+.app-day {
+  margin-top: 1.5rem;
+}
+
+.app-day-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.app-today {
+  color: var(--ink);
+}
+
+.app-today-mark {
+  background: var(--panel);
+  color: var(--panel-ink);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+/* ---------- карточка заявки ---------- */
+
+.app-card {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--cream);
+}
+
+.app-card-new {
+  border-left-color: var(--panel);
+}
+
+.app-card-confirmed {
+  border-left-color: var(--ok);
+}
+
+.app-card-declined {
+  border-left-color: var(--no);
+  opacity: 0.7;
+}
+
+.app-card-done {
+  opacity: 0.6;
+}
+
+.app-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.app-card-head h3 {
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.app-contact {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.app-chip {
+  flex: 0 0 auto;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.app-chip-new {
+  background: var(--panel);
+  border-color: var(--panel);
+  color: var(--panel-ink);
+}
+
+.app-chip-confirmed {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.app-chip-declined {
+  border-color: var(--no);
+  color: var(--no);
+}
+
+/* ---------- поля заявки ---------- */
+
+.app-meta {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.35rem 0.75rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+}
+
+.app-meta dt {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.2em;
+}
+
+.app-meta dd {
+  margin: 0;
+}
+
+.app-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- кнопки ---------- */
+
+.app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.app-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.7rem 1.2rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.app-btn:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.app-btn-primary {
+  background: var(--panel);
+  border-color: var(--panel);
+  color: var(--panel-ink);
+}
+
+.app-btn-primary:hover:not(:disabled) {
+  background: transparent;
+  color: var(--panel);
+}
+
+.app-btn-quiet {
+  border-color: transparent;
+  color: var(--muted);
+  padding: 0.5rem 0;
+}
+
+.app-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------- сообщения ---------- */
+
+.app-flash,
+.app-error,
+.app-empty {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.app-error {
+  border-color: #c8a49c;
+  color: var(--no);
+}
+
+.app-empty {
+  border-style: dashed;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- вход ---------- */
+
+.app-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.app-login form {
+  width: 100%;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.app-login-title {
+  font-size: 1.75rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.app-login label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.app-login input {
+  font-family: var(--sans);
+  font-size: 1rem;
+  padding: 0.7rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  border-radius: 0;
+  color: var(--ink);
+}
+
+.app-login input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+/* ---------- подвал ---------- */
+
+.app-foot {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.app-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
