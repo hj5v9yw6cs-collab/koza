@@ -5,4 +5,7 @@ dist
 .env
 .env.*
 !.env.example
+# Локальные переменные для wrangler — там живёт токен бота.
+.dev.vars
 .wrangler
+dist-preview

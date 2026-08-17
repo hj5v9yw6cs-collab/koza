@@ -57,7 +57,7 @@ async function handleBooking(request, env) {
   )
 
   if (!data.name || !data.contact) {
-    return json({ ok: false, error: 'Укажите имя и способ связи.' }, 400)
+    return json({ ok: false, error: 'Напиши имя и способ связи.' }, 400)
   }
 
   const lines = [
