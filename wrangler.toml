@@ -1,0 +1,21 @@
+# Конфигурация Cloudflare Workers.
+#
+# Сайт — статика из dist, а /api/* обрабатывает воркер (форма записи).
+# Переменные TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID задаются в панели
+# Cloudflare: Settings → Variables and Secrets, тип Secret.
+
+name = "koza"
+main = "worker/index.js"
+compatibility_date = "2026-08-01"
+
+[assets]
+directory = "./dist"
+# Через эту привязку воркер сам отдаёт файлы сайта и делает фолбэк на
+# index.html для внутренних страниц вида /services.
+binding = "ASSETS"
+# Без этого роутер статики редиректит /services на /services/ — лишний
+# прыжок и слэш в адресе. Фолбэком занимается воркер, редирект не нужен.
+html_handling = "none"
+# not_found_handling намеренно не включаем: в режиме single-page-application
+# роутер статики отвечал бы на все адреса сам и воркер бы не запускался,
+# то есть форма записи на /api/* перестала бы работать.

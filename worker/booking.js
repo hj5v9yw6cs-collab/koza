@@ -1,9 +1,9 @@
-// Cloudflare Pages Function: принимает заявку с сайта и отправляет её в Telegram.
-// Токен бота живёт только здесь, в переменных окружения Cloudflare, — в браузер не попадает.
+// Приём заявки с сайта и отправка её в Telegram.
+// Токен бота живёт в переменных окружения Cloudflare и в браузер не попадает.
 //
-// Нужные переменные (Cloudflare Pages → Settings → Environment variables):
+// Нужные переменные (Cloudflare → Settings → Variables and Secrets, тип Secret):
 //   TELEGRAM_BOT_TOKEN — токен от @BotFather
-//   TELEGRAM_CHAT_ID   — id чата, куда падают заявки (свой личный или группы)
+//   TELEGRAM_CHAT_ID   — id чата, куда падают заявки
 
 const LIMITS = {
   name: 80,
@@ -14,7 +14,7 @@ const LIMITS = {
   comment: 1000,
 }
 
-const json = (body, status = 200) =>
+export const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -35,7 +35,7 @@ const clean = (value, max) =>
     .trim()
     .slice(0, max)
 
-async function handleBooking(request, env) {
+export async function handleBooking(request, env) {
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
     return json({ ok: false, error: 'Форма ещё не настроена.' }, 500)
   }
@@ -95,11 +95,4 @@ async function handleBooking(request, env) {
     console.error('telegram request error', err)
     return json({ ok: false, error: 'Не удалось отправить заявку.' }, 502)
   }
-}
-
-export async function onRequest({ request, env }) {
-  if (request.method !== 'POST') {
-    return json({ ok: false, error: 'Метод не поддерживается.' }, 405)
-  }
-  return handleBooking(request, env)
 }
