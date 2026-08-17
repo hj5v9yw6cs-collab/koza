@@ -24,3 +24,9 @@ html_handling = "none"
 # сбрасывается при следующем деплое, и причина сбоя заявки не видна.
 [observability]
 enabled = true
+
+# База заявок. database_id берётся со страницы базы в панели Cloudflare.
+[[d1_databases]]
+binding = "DB"
+database_name = "koza-bookings"
+database_id = "ЗАПОЛНИТЬ-ID-БАЗЫ"

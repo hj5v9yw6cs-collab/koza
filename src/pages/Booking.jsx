@@ -26,6 +26,8 @@ export default function Booking() {
   )
   const [state, setState] = useState('idle') // idle | sending | ok | err
   const [error, setError] = useState('')
+  // Ссылка на бота, по которой клиент подписывается на подтверждение.
+  const [subscribe, setSubscribe] = useState(null)
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
 
@@ -58,6 +60,7 @@ export default function Booking() {
       }
 
       setState('ok')
+      setSubscribe(data.subscribe ?? null)
       setForm(empty)
     } catch (err) {
       setError(err.message || 'Не удалось отправить заявку.')
@@ -177,7 +180,20 @@ export default function Booking() {
 
               {state === 'ok' && (
                 <div className="form-status ok" role="status">
-                  Заявка отправлена. Напишу тебе, чтобы подтвердить время — спасибо!
+                  Заявка отправлена — спасибо!
+                  {subscribe ? (
+                    <>
+                      <p style={{ margin: '0.75rem 0 1rem' }}>
+                        Нажми кнопку ниже, и подтверждение придёт тебе в телеграм, как только я
+                        подтвержу время.
+                      </p>
+                      <a className="btn" href={subscribe} target="_blank" rel="noreferrer">
+                        получить подтверждение
+                      </a>
+                    </>
+                  ) : (
+                    <p style={{ margin: '0.75rem 0 0' }}>Напишу тебе, чтобы подтвердить время.</p>
+                  )}
                 </div>
               )}
 
